@@ -1,4 +1,5 @@
 # xls-remaker
+![Alt text](./logo.png "A FREAKING TITLE")
 
 You'll need php installed on your PC. Check by running 
 
