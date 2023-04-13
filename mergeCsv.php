@@ -1,7 +1,7 @@
 <?php	
-mergeArrayToCsv($files);
+mergeArrayToCsv();
 
-function mergeArrayToCsv ($files)
+function mergeArrayToCsv ()
 {
 // Initialize an empty array to hold the combined data
 $combined_data = array();
@@ -14,9 +14,11 @@ foreach ($file_names as $file_name) {
     // Loop through each row in the input file
     while (($row = fgetcsv($file)) !== false) {
         // Get the "Component" and "Analyzed value" for this row
-        $component = $row[0];
-        $value = $row[1];
-
+        if (count($row) >= 2) {
+			$component = $row[0];
+			$value = $row[1];
+			}       
+        
         // If we haven't seen this component before, add a new array for it
         if (!isset($combined_data[$component])) {
             $combined_data[$component] = array();
