@@ -1,10 +1,8 @@
 <?php	
-$files = buildStorageArray();
 mergeArrayToCsv($files);
 
 function mergeArrayToCsv ($files)
 {
-
 // Initialize an empty array to hold the combined data
 $combined_data = array();
 $file_names = getFileNames();
@@ -36,7 +34,10 @@ foreach ($file_names as $file_name) {
 $output_file = fopen('output.csv', 'w');
 
 // Write the header row for the output file
-$header_row = array_merge(array('Component'), $file_names);
+$header_row = array_merge(array('Component'), array_map(function ($file_name) {
+    return str_replace('-new.csv', '', basename($file_name)) . '';
+}, $file_names));
+
 fputcsv($output_file, $header_row);
 
 // Loop through each component in the combined data and write a row for it to the output file
@@ -62,28 +63,6 @@ fclose($output_file);
 	
 }
 
-
-function buildStorageArray ()
-{
-	$dir = "./data-to-process/";
-	$file_list = scandir($dir); // Get a list of all the files in the directory
-	$data = array(); // Initialize an empty array to store the CSV data
-	// Loop through each file in the directory
-	foreach ($file_list as $filename) {
-	  // Only load files with a .csv extension
-	  if (substr($filename, -8) == "-new.csv") {
-		// Load the CSV file into an array
-		$csv_data = array_map('str_getcsv', file($dir.'/'.$filename));		
-		
-		foreach($csv_data as $row) {
-			$arrContents[$row[0]] = $row[1];		
-			$csvFiles[$filename] = $arrContents;
-		}		
-	  }
-	}
-	return $csvFiles;
-}
-
 function getFileNames ()
 {
 	$dir = "./data-to-process/";
@@ -99,21 +78,5 @@ function getFileNames ()
 	  }
 	}
 	return $arrCsvFiles;
-}
-
-
-function storeCsvFileIntoArray()
-{
-    $file = file_get_contents($fileName, true);
-    $lines = explode(PHP_EOL, $file);
-
-    foreach ($lines as $line) {
-        $rowData = explode(',', $line);
-        $items[] = array(
-            'component' => $buffer[0],
-            'anal-value' => $buffer[1],
-        );
-    }
-    return $items;
 }
 ?>
