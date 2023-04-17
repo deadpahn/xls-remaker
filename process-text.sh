@@ -10,13 +10,6 @@ echo "
  ░    ░    ░ ░   ░  ░  ░    ░░   ░    ░   ░      ░     ░   ▒   ░ ░░ ░    ░     ░░   ░ 
  ░    ░      ░  ░      ░     ░        ░  ░       ░         ░  ░░  ░      ░  ░   ░     
                                                                                       "
-# Check if xlsx2csv is installed
-if ! command -v xlsx2csv &> /dev/null
-then
-    echo "xlsx2csv is not found."
-    echo "To install, run the following command: pip install xlsx2csv"
-    exit 1
-fi
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 pathToExcels="$SCRIPT_DIR/data-to-process/";
