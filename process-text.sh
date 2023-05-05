@@ -46,10 +46,6 @@ function type2CSV () {
 		newCsvContents=$(cat ${file%.xlsx}-new.csv)
 		echo "$newCsvContents" | sed 's/,,/,/g' > ${file%.xlsx}-new.csv
 		newCsvContents=$(cat ${file%.xlsx}-new.csv)
-		echo "$newCsvContents" | sed 's/(//g' > ${file%.xlsx}-new.csv
-		newCsvContents=$(cat ${file%.xlsx}-new.csv)
-		echo "$newCsvContents" | sed 's/)//g' > ${file%.xlsx}-new.csv
-		newCsvContents=$(cat ${file%.xlsx}-new.csv)
 		echo "$newCsvContents" | sed '/^$/d' > ${file%.xlsx}-new.csv
 		newCsvContents=$(cat ${file%.xlsx}-new.csv)
 		echo "$newCsvContents" | sed 's/,$//' > ${file%.xlsx}-new.csv
